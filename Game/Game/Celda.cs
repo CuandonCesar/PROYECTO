@@ -34,11 +34,11 @@ namespace Game
 
             try
             {
-                for (int i = 0; i < 9; i++)
+                for (int i = 0; i < 6; i++)
                 {
 
                     List<Sprite> sublist = new List<Sprite>();
-                    for (int j = 0; j < 9; j++)
+                    for (int j = 0; j < 6; j++)
                     {
                         sublist.Add(new Sprite(i, j, (Sprite.Type)random.Next(3)));
 
@@ -112,7 +112,7 @@ namespace Game
                     equal.Add(board[i - 2][j]);
                 }
 
-                if (i > 0 && j < 8 &&
+                if (i > 0 && j < 5 &&
                         board[i - 1][j].current == selected.current &&
                         board[i - 1][j+1].current == selected.current)
                 {
@@ -138,7 +138,7 @@ namespace Game
                     equal.Add(board[i-1][j-1]);
                 }
 
-                if (i < 8 && j > 0 &&
+                if (i < 5 && j > 0 &&
                         board[i][j-1].current == selected.current &&
                         board[i+1][j-1].current == selected.current)
                 {
@@ -150,7 +150,7 @@ namespace Game
 
                 //Abajo
 
-                if (i < 8 && j > 0 &&
+                if (i < 5 && j > 0 &&
                     board[i + 1][j].current == selected.current &&
                     board[i + 1][j-1].current == selected.current)
                 {
@@ -158,7 +158,7 @@ namespace Game
                     equal.Add(board[i + 1][j - 1]);
                 }
 
-                if (i < 7 &&
+                if (i < 4 &&
                       board[i + 1][j].current == selected.current &&
                       board[i + 2][j].current == selected.current)
                 {
@@ -166,7 +166,7 @@ namespace Game
                     equal.Add(board[i + 2][j]);
                 }
 
-                if (i < 8 && j < 8 &&
+                if (i < 5 && j < 5 &&
                         board[i + 1][j].current == selected.current &&
                         board[i + 1][j + 1].current == selected.current)
                 {
@@ -176,7 +176,7 @@ namespace Game
 
 
                 //der
-                if (i > 0 && j < 8 &&
+                if (i > 0 && j < 5 &&
                      board[i][j + 1].current == selected.current &&
                      board[i-1][j +1].current == selected.current)
                 {
@@ -184,7 +184,7 @@ namespace Game
                     equal.Add(board[i-1][j + 1]);
                 }
 
-                if (j < 7 &&
+                if (j < 4 &&
                        board[i][j + 1].current == selected.current &&
                        board[i][j + 2].current == selected.current)
                 {
@@ -192,7 +192,7 @@ namespace Game
                     equal.Add(board[i][j + 2]);
                 }
 
-                if (i < 8 && j < 8 &&
+                if (i < 5 && j < 5 &&
                         board[i][j + 1].current == selected.current &&
                         board[i + 1][j + 1].current == selected.current)
                 {
@@ -202,7 +202,7 @@ namespace Game
 
 
                 //sides
-                if (i > 0 && i < 8 &&
+                if (i > 0 && i < 5 &&
                      board[i+1][j].current == selected.current &&
                      board[i-1][j].current == selected.current)
                 {
@@ -210,7 +210,7 @@ namespace Game
                     equal.Add(board[i-1][j]);
                 }
 
-                if (j > 0 && j < 8 &&
+                if (j > 0 && j < 5 &&
                        board[i][j+1].current == selected.current &&
                        board[i][j-1].current == selected.current)
                 {
@@ -227,7 +227,7 @@ namespace Game
                     equal.Add(board[i][j-1]);
                 }
 
-                if (j > 0 && i < 8 &&
+                if (j > 0 && i < 5 &&
                        board[i+1][j].current == selected.current &&
                        board[i][j-1].current == selected.current)
                 {
@@ -236,7 +236,7 @@ namespace Game
                 }
 
             
-                if (i < 8 && j<8 &&
+                if (i < 5 && j<5 &&
                          board[i+1][j].current == selected.current &&
                          board[i][j+1].current == selected.current)
                 {
@@ -244,7 +244,7 @@ namespace Game
                     equal.Add(board[i][j+1]);
                 }
 
-                if (j < 8 && i > 0 &&
+                if (j < 5 && i > 0 &&
                        board[i-1][j].current == selected.current &&
                        board[i][j+1].current == selected.current)
                 {
@@ -264,6 +264,14 @@ namespace Game
                 {
                     selected.current++;
                 }
+                foreach (Sprite val in equal)
+                {
+                    val.current = Sprite.Type.peon;
+                }
+
+                if ((int)selected.current < 3 && equal.Count >= 3)
+                {
+                    selected.current++;
             }
 
         public Sprite getNext()
@@ -288,7 +296,7 @@ namespace Game
 
     public class Sprite: GameObject
     {
-        public enum Type {empty,green,bush}
+        public enum Type {peon,torre,reina,caballo}
         public int size = 64;
         public int i, j;
         public int x ;
@@ -306,21 +314,23 @@ namespace Game
             this.j=j;
             x = i * size;
             y = j * size;
-            _frames.Add(new Bitmap(@"C:\Users\maestria\Documents\Visual Studio 2010\Projects\Game\Game\images\dirt.bmp"));
-            _frames.Add(new Bitmap(@"C:\Users\maestria\Documents\Visual Studio 2010\Projects\Game\Game\images\grass.bmp"));
-            _frames.Add(new Bitmap(@"C:\Users\maestria\Documents\Visual Studio 2010\Projects\Game\Game\images\bush.bmp"));
+            _frames.Add(new Bitmap(@"C:\Users\Zero\Downloads\Game\Game\images\peon.bmp"));
+            _frames.Add(new Bitmap(@"C:\Users\Zero\Downloads\Game\Game\images\torre.bmp"));
+            _frames.Add(new Bitmap(@"C:\Users\Zero\Downloads\Game\Game\images\reina.bmp"));
+            _frames.Add(new Bitmap(@"C:\Users\Zero\Downloads\Game\Game\images\caballo.bmp"));
+
             
         }
 
         public Sprite(Sprite.Type current)
         {
             this.current = current;
-            this.i = 11;
+            this.i = 7;
             this.j = 1;
-            _frames.Add(new Bitmap(@"C:\Users\maestria\Documents\Visual Studio 2010\Projects\Game\Game\images\dirt.bmp"));
-            _frames.Add(new Bitmap(@"C:\Users\maestria\Documents\Visual Studio 2010\Projects\Game\Game\images\grass.bmp"));
-            _frames.Add(new Bitmap(@"C:\Users\maestria\Documents\Visual Studio 2010\Projects\Game\Game\images\bush.bmp"));
-
+           _frames.Add(new Bitmap(@"C:\Users\Zero\Downloads\Game\Game\images\peon.bmp"));
+            _frames.Add(new Bitmap(@"C:\Users\Zero\Downloads\Game\Game\images\torre.bmp"));
+            _frames.Add(new Bitmap(@"C:\Users\Zero\Downloads\Game\Game\images\reina.bmp"));
+            _frames.Add(new Bitmap(@"C:\Users\Zero\Downloads\Game\Game\images\caballo.bmp"));
         }
 
 
